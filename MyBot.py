@@ -43,6 +43,10 @@ while True:
                 # Skip this planet
                 continue
 
+                #blabedy blac lah
+                #writing comments
+                #will this work?
+
             # If we can dock, let's (try to) dock. If two ships try to dock at once, neither will be able to.
             if ship.can_dock(planet):
                 # We add the command by appending it to the command_queue
