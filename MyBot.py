@@ -38,8 +38,8 @@ while True:
 
         # For each planet in the game (only non-destroyed planets are included)
         for planet in game_map.all_planets():
-            # If the planet is not owned by me - THIS ISN'T DONE.
-            if planet.owner != game_map.get_me().my_id:
+            # If the planet is owned
+            if planet.is_owned():
                 # Skip this planet
                 continue
 
