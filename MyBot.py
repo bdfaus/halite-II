@@ -38,7 +38,7 @@ while True:
 
         # For each planet in the game (only non-destroyed planets are included)
         for planet in game_map.all_planets():
-            # If the planet is owned
+            # If the planet is is_owned
             if planet.is_owned():
                 # Skip this planet
                 continue
@@ -73,3 +73,17 @@ while True:
     game.send_command_queue(command_queue)
     # TURN END
 # GAME END
+
+
+#how tracker?
+#if tracker <= len(planets):
+#    if can dock on planet[tracker]:
+#        try to dock
+#    else:
+#        navigate to planet[tracker]
+
+#elif tracker > len(planets):
+#    if can dock on planet[-tracker]:
+#       dock
+#    else:
+#        navigate to planet[-tracker]
