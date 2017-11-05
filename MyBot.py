@@ -45,7 +45,7 @@ while True:
                 # Skip this planet
 #                continue
 
-    #DIVIDE AND CONQUER STARTS HERE
+    #----------------------------DIVIDE AND CONQUER STARTS HERE
     ships = game_map.get_me().all_ships():
     planets = game_map.all_planets():
 
@@ -54,7 +54,7 @@ while True:
             planet = planets[ship]
         else:
             planet = planets[ship % len(planets)]
-    #DIVIDE AND CONQUER ENDS HERE - ONLY CHANGES POSSIBLY AFFECTING MyBot.py BELOW HERE ARE DECREASED INDENTATION BY ONE LEVEL
+    #----------------------------DIVIDE AND CONQUER ENDS HERE - ONLY CHANGES POSSIBLY AFFECTING MyBot.py BELOW HERE ARE DECREASED INDENTATION BY ONE LEVEL
 
 
 
