@@ -46,13 +46,13 @@ while True:
 #                continue
 
     #----------------------------DIVIDE AND CONQUER STARTS HERE
-    ships = game_map.get_me().all_ships():
-    planets = game_map.all_planets():
+    ships = game_map.get_me().all_ships() #variable ships set to list of all ships
+    planets = game_map.all_planets() #variable planets set to list of all planets
 
     for ship in range(0,len(ships)):
-        try planets[ship]:
+        if planets[ship] < len(planets):
             planet = planets[ship]
-        except:
+        else:
             planet = planets[ship % len(planets)]
         while planet.is_owned():
             planet += 1
@@ -92,17 +92,3 @@ while True:
     game.send_command_queue(command_queue)
     # TURN END
 # GAME END
-
-
-#how tracker?
-#if tracker <= len(planets):
-#    if can dock on planet[tracker]:
-#        try to dock
-#    else:
-#        navigate to planet[tracker]
-
-#elif tracker > len(planets):
-#    if can dock on planet[-tracker]:
-#       dock
-#    else:
-#        navigate to planet[-tracker]
