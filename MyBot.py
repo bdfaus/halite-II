@@ -50,12 +50,12 @@ while True:
     planets = game_map.all_planets():
 
     for ship in range(0,len(ships)):
-        if planets[ship].is_owned():
-            continue
         try planets[ship]:
             planet = planets[ship]
         except:
             planet = planets[ship % len(planets)]
+        while planet.is_owned():
+            planet += 1
     #----------------------------DIVIDE AND CONQUER ENDS HERE - ONLY CHANGES POSSIBLY AFFECTING MyBot.py BELOW HERE ARE DECREASED INDENTATION BY ONE LEVEL
 
 
