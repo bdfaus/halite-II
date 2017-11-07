@@ -48,18 +48,22 @@ while True:
     #----------------------------DIVIDE AND CONQUER STARTS HERE
     ships = game_map.get_me().all_ships() #variable ships set to list of all ships
     planets = game_map.all_planets() #variable planets set to list of all planets
+    logging.info(len(planets))
+    logging.info(len(ships))
 
-    for planet in (0,len(planets)-1):
-        if planets[planet].is_owned():
-                del planets[planet]
-
-    for ship in range(0,len(ships)):
-        if ship < len(planets):
-            planet = planets[ship]
+    goal_planets =[]
+    for planet in range(len(planets)):
+        if not planets[planet].is_owned():
+                goal_planets.append(planets[planet])
         else:
-            planet = planets[ship % len(planets)]
-    #----------------------------DIVIDE AND CONQUER ENDS HERE - ONLY CHANGES POSSIBLY AFFECTING MyBot.py BELOW HERE ARE DECREASED INDENTATION BY ONE LEVEL
+            continue
+    logging.info(len(goal_planets))
 
+    for ship in range(len(ships)):
+        if ship < len(goal_planets):
+            planet = goal_planets[ship]
+        else:
+            planet = goal_planets[ship % len(planets)]
 
 
         logging.info("Ship id is: ")
@@ -88,7 +92,10 @@ while True:
                     # don't fret though, we can run the command again the next turn)
         if navigate_command:
             command_queue.append(navigate_command)
-        break
+            logging.info("You made it this far.")
+        else:
+            break
+
 
         # Send our set of commands to the Halite engine for this turn
         game.send_command_queue(command_queue)
