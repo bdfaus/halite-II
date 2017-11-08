@@ -90,14 +90,13 @@ while True:
                     # If the move is possible, add it to the command_queue (if there are too many obstacles on the way
                     # or we are trapped (or we reached our destination!), navigate_command will return null;
                     # don't fret though, we can run the command again the next turn)
-        if navigate_command:
-            command_queue.append(navigate_command)
-            logging.info("You made it this far.")
-        else:
-            break
+            if navigate_command:
+                command_queue.append(navigate_command)
+                logging.info("You made it this far.")
+        break
 
 
         # Send our set of commands to the Halite engine for this turn
-        game.send_command_queue(command_queue)
+    game.send_command_queue(command_queue)
     # TURN END
 # GAME END
