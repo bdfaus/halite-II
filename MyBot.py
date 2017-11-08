@@ -47,31 +47,15 @@ while True:
 
     #----------------------------DIVIDE AND CONQUER STARTS HERE
     ships = game_map.get_me().all_ships() #variable ships set to list of all ships
-    planets = game_map.all_planets() #variable planets set to list of all planets
-    logging.info(len(planets))
-    logging.info(len(ships))
+    goal_planets = game_map.all_planets() #variable planets set to list of all planets
 
-    goal_planets =[]
-    for planet in range(len(planets)):
-        if not planets[planet].is_owned():
-                goal_planets.append(planets[planet])
-        else:
-            continue
-    logging.info(len(goal_planets))
+#need to skip owned planets
 
-    for ship in range(len(ships)): #possibly change variables Here
+    for ship in range(len(ships)):
         if ship < len(goal_planets):
             planet = goal_planets[ship]
         else:
             planet = goal_planets[ship % len(planets)]
-
-
-        logging.info("Ship id is: ")
-        logging.info(ships[ship].id)
-
-        logging.info("Planet id is: ")
-        logging.info(planet.id)
-
 
                 # If we can dock, let's (try to) dock. If two ships try to dock at once, neither will be able to.
         if ships[ship].can_dock(planet):
@@ -92,7 +76,6 @@ while True:
                     # don't fret though, we can run the command again the next turn)
             if navigate_command:
                 command_queue.append(navigate_command)
-                logging.info("You made it this far.")
         continue
 
 
