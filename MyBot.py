@@ -59,7 +59,7 @@ while True:
             continue
     logging.info(len(goal_planets))
 
-    for ship in range(len(ships)):
+    for ship in range(len(ships)): #possibly change variables Here
         if ship < len(goal_planets):
             planet = goal_planets[ship]
         else:
@@ -93,7 +93,7 @@ while True:
             if navigate_command:
                 command_queue.append(navigate_command)
                 logging.info("You made it this far.")
-        break
+        continue
 
 
         # Send our set of commands to the Halite engine for this turn
