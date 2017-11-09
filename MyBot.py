@@ -29,31 +29,11 @@ while True:
     # Here we define the set of commands to be sent to the Halite engine at the end of the turn
     command_queue = []
 
-#     For every ship that I control
-    #for ship in game_map.get_me().all_ships():
-        # If the ship is docked
-#        if ship.docking_status != ship.DockingStatus.UNDOCKED:
-            # Skip this ship
-#            continue
-
-        #logging.info(ship.id())
-
-        # For each planet in the game (only non-destroyed planets are included)
-#        for planet in game_map.all_planets():
-            # If the planet is is_owned
-#            if planet.is_owned():
-                # Skip this planet
-#                continue
-
-    #----------------------------DIVIDE AND CONQUER STARTS HERE
     ships = game_map.get_me().all_ships() #variable ships set to list of all ships
     goal_planets = game_map.all_planets() #variable planets set to list of all planets
 
-#need to skip owned planets
-    
-
     for ship in ships:
-        planet = goal_planets[ship.id % len(goal_planets)]
+        planet = goal_planets[ship.id % len(goal_planets)] #ship.id prevents sudden change of direction when ships len changes
 
                 # If we can dock, let's (try to) dock. If two ships try to dock at once, neither will be able to.
         if ship.can_dock(planet):
