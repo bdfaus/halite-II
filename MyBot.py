@@ -31,8 +31,14 @@ while True:
 
     ships = game_map.get_me().all_ships() #variable ships set to list of all ships
     goal_planets = game_map.all_planets() #variable planets set to list of all planets
-
+#---
     for ship in ships:
+        planet_dist = game_map.nearby_entities_by_distance(ship)
+        logging.info(planet_dist) #this logging all entities in the style of {distance: [entity info], distance: [entity info]....}
+        sorted(goal_planets, key=planet_dist.__getitem__)
+
+#---
+
         planet = goal_planets[ship.id % len(goal_planets)] #ship.id prevents sudden change of direction when ships len changes
 
                 # If we can dock, let's (try to) dock. If two ships try to dock at once, neither will be able to.
