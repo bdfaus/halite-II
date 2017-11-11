@@ -43,10 +43,14 @@ while True:
             ents_by_dist.append(entity_dist[x])
         logging.info(ents_by_dist)
         #up to this point gives a list of entities by distance (stored in ents_by_dist)
+        #now will eliminate non-planets
+        planets_by_dist = []
+        for ent in range(len(ents_by_dist)):
+            if type(ents_by_dist[ent][0])==hlt.entity.Planet:
+                planets_by_dist.append(ents_by_dist[ent][0])
+        logging.info(planets_by_dist) # planets_by_dist is now list of close planets
+        logging.info(goal_planets)
 
-        for ent in ents_by_dist:
-            if ent != entity.Planet():
-                
 
 
 
@@ -55,7 +59,7 @@ while True:
 
 #---NEW STUFF that does a bunch of nonsense
 
-        planet = goal_planets[ship.id % len(goal_planets)] #ship.id prevents sudden change of direction when ships len changes
+        planet = planets_by_dist[ship.id % len(planets_by_dist)] #ship.id prevents sudden change of direction when ships len changes
 
                 # If we can dock, let's (try to) dock. If two ships try to dock at once, neither will be able to.
         if ship.can_dock(planet):
