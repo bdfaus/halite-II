@@ -31,13 +31,29 @@ while True:
 
     ships = game_map.get_me().all_ships() #variable ships set to list of all ships
     goal_planets = game_map.all_planets() #variable planets set to list of all planets
-#---
-    for ship in ships:
-        planet_dist = game_map.nearby_entities_by_distance(ship)
-        logging.info(planet_dist) #this logging all entities in the style of {distance: [entity info], distance: [entity info]....}
-        sorted(goal_planets, key=planet_dist.__getitem__)
 
-#---
+#---NEW STUFF that does a bunch of nonsense
+    for ship in ships:
+        entity_dist = game_map.nearby_entities_by_distance(ship) #returns dictionary of {distance: entity}
+        logging.info(entity_dist) #this logging all entities in the style of {distance: [entity info], distance: [entity info]....}
+        planet_sort = (sorted(entity_dist.keys()))
+        logging.info(planet_sort)
+        ents_by_dist = []
+        for x in planet_sort:
+            ents_by_dist.append(entity_dist[x])
+        logging.info(ents_by_dist)
+        #up to this point gives a list of entities by distance (stored in ents_by_dist)
+
+        for ent in ents_by_dist:
+            if ent != entity.Planet():
+                
+
+
+
+        #sorted(goal_planets, key=planet_dist.__getitem__)
+        #after turn 15 go to nearest planet?
+
+#---NEW STUFF that does a bunch of nonsense
 
         planet = goal_planets[ship.id % len(goal_planets)] #ship.id prevents sudden change of direction when ships len changes
 
