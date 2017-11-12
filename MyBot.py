@@ -34,32 +34,16 @@ while True:
 
 #---NEW STUFF that does a bunch of nonsense
     for ship in ships:
-        entity_dist = game_map.nearby_entities_by_distance(ship) #returns dictionary of {distance: entity}
-        logging.info(entity_dist) #this logging all entities in the style of {distance: [entity info], distance: [entity info]....}
-        planet_sort = (sorted(entity_dist.keys()))
-        logging.info(planet_sort)
-        ents_by_dist = []
-        for x in planet_sort:
-            ents_by_dist.append(entity_dist[x])
-        logging.info(ents_by_dist)
-        #up to this point gives a list of entities by distance (stored in ents_by_dist)
-        #now will eliminate non-planets
-        planets_by_dist = []
-        for ent in range(len(ents_by_dist)):
-            if type(ents_by_dist[ent][0])==hlt.entity.Planet:
-                planets_by_dist.append(ents_by_dist[ent][0])
-        logging.info(planets_by_dist) # planets_by_dist is now list of close planets
-        logging.info(goal_planets)
-
-
-
+        planet_dist = game_map.nearby_planets_by_distance(ship) #returns dictionary of {distance: planet}
+        logging.info(planet_dist) #this logging all entities in the style of {distance: [entity info], distance: [entity info]....}
 
         #sorted(goal_planets, key=planet_dist.__getitem__)
         #after turn 15 go to nearest planet?
 
 #---NEW STUFF that does a bunch of nonsense
 
-        planet = planets_by_dist[ship.id % len(planets_by_dist)] #ship.id prevents sudden change of direction when ships len changes
+            #IF GOAL_PLANETS IS CHANGED TO PLANETS_BY_DIST, THE SHIPS JUST SPAZZ OUT
+        planet = goal_planets[ship.id % len(goal_planets)] #ship.id prevents sudden change of direction when ships len changes
 
                 # If we can dock, let's (try to) dock. If two ships try to dock at once, neither will be able to.
         if ship.can_dock(planet):
