@@ -143,6 +143,15 @@ class Planet(Entity):
         """
         return len(self._docked_ship_ids) >= self.num_docking_spots
 
+#added by me
+    def is_half_full(self):
+        """
+        Determines if planet is half occupied
+        :return: True if half full, False otherwise.
+        :rtype:bool
+        """
+        return len(self._docked_ship_ids) >= self.num_docking_spots/2
+
     def _link(self, players, planets):
         """
         This function serves to take the id values set in the parse function and use it to populate the planet
