@@ -20,8 +20,11 @@ import logging
 game = hlt.Game("Settler")
 # Then we print our start message to the logs
 logging.info("Starting my Settler bot!")
+turn = 0
 
 while True:
+    turn += 1
+    logging.info(turn)
     # TURN START
     # Update the map for the new turn and get the latest version
     game_map = game.update_map()
@@ -35,15 +38,25 @@ while True:
 #---NEW STUFF that does a bunch of nonsense
     for ship in ships:
         planet_dist = game_map.nearby_planets_by_distance(ship) #returns dictionary of {distance: planet}
-        logging.info(planet_dist) #this logging all entities in the style of {distance: [entity info], distance: [entity info]....}
+    
+        more_planets = []
+        for x in sorted(planet_dist):
+            more_planets.append(planet_dist[x])
 
-        #sorted(goal_planets, key=planet_dist.__getitem__)
-        #after turn 15 go to nearest planet?
+        logging.info(more_planets)
+        if turn > 8:
+            b = 0
+            while more_planets[b][0].is_full():
+                b += 1
+            else: 
+                planet = more_planets[b][0]
+        else:
+            planet = goal_planets[ship.id % len(goal_planets)]
 
 #---NEW STUFF that does a bunch of nonsense
 
             #IF GOAL_PLANETS IS CHANGED TO PLANETS_BY_DIST, THE SHIPS JUST SPAZZ OUT
-        planet = goal_planets[ship.id % len(goal_planets)] #ship.id prevents sudden change of direction when ships len changes
+        #planet = goal_planets[ship.id % len(goal_planets)] #ship.id prevents sudden change of direction when ships len changes
 
                 # If we can dock, let's (try to) dock. If two ships try to dock at once, neither will be able to.
         if ship.can_dock(planet):
