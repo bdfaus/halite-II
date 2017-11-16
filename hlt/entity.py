@@ -144,13 +144,13 @@ class Planet(Entity):
         return len(self._docked_ship_ids) >= self.num_docking_spots
 
 #added by me
-    def is_half_full(self):
+    def is_percent_full(self, percent):
         """
         Determines if planet is half occupied
         :return: True if half full, False otherwise.
         :rtype:bool
         """
-        return len(self._docked_ship_ids) >= self.num_docking_spots/2
+        return len(self._docked_ship_ids) >= self.num_docking_spots * (percent/100)
 
     def _link(self, players, planets):
         """
@@ -242,6 +242,7 @@ class Ship(Entity):
         self.health = hp
         self.docking_status = docking_status
         self.planet = planet if (docking_status is not Ship.DockingStatus.UNDOCKED) else None
+
         self._docking_progress = progress
         self._weapon_cooldown = cooldown
 
