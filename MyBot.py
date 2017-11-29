@@ -14,6 +14,7 @@ to log anything use the logging module.
 import hlt
 # Then let's import the logging module so we can print out information
 import logging
+import time
 
 # GAME START
 # Here we define the bot's name as Settler and initialize the game, including communication with the Halite engine.
@@ -23,6 +24,7 @@ logging.info("Starting my Settler bot!")
 turn = 0
 
 while True:
+    start = time.perf_counter()
     turn += 1
     logging.info(turn)
     # TURN START
@@ -37,22 +39,27 @@ while True:
 
 #---NEW STUFF that does a bunch of nonsense
     for ship in ships:
-        planet_dist = game_map.nearby_planets_by_distance(ship) #returns dictionary of {distance: planet}
+        t_end = time.perf_counter() - start
+        logging.info(t_end)
+        if t_end > 1.5:
+            break
+        planet_dist = game_map.nearby_planets_by_distance(ship) #returns dictionary of {    distance: planet}
     
         more_planets = []
         for x in sorted(planet_dist):
             more_planets.append(planet_dist[x])
 
-        logging.info(more_planets)
+        #sends ships to the next planet if it's past turn 8 and the original goal planet is 100 percent full (all docking spots taken)
         if turn > 8:
             b = 0
             while more_planets[b][0].is_percent_full(100):
                 b += 1
             else:
                 planet = more_planets[b][0]
-        #ELIF ALL PLANETS ARE OCCUPIED, FLY AROUND IN CIRCLES
+
         else:
             planet = goal_planets[ship.id % len(goal_planets)]
+
 
 #---NEW STUFF that does a bunch of nonsense
 
@@ -72,13 +79,14 @@ while True:
                     # This will mean that you have a higher probability of crashing into ships, but it also means you will
                     # make move decisions much quicker. As your skill progresses and your moves turn more optimal you may
                     # wish to turn that option off.
-            navigate_command = ship.navigate(ship.closest_point_to(planet), game_map, speed=hlt.constants.MAX_SPEED, ignore_ships = True)
+            navigate_command = ship.navigate(ship.closest_point_to(planet), game_map, speed=hlt.constants.MAX_SPEED)
                     # If the move is possible, add it to the command_queue (if there are too many obstacles on the way
                     # or we are trapped (or we reached our destination!), navigate_command will return null;
                     # don't fret though, we can run the command again the next turn)
             if navigate_command:
                 command_queue.append(navigate_command)
         continue
+        logging.infO(t_end)
 
 
         # Send our set of commands to the Halite engine for this turn
