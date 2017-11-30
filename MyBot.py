@@ -56,9 +56,9 @@ while True:
                 b += 1
             else:
                 planet = more_planets[b][0]
-
         else:
             planet = goal_planets[ship.id % len(goal_planets)]
+
 
 
 #---NEW STUFF that does a bunch of nonsense
@@ -70,6 +70,10 @@ while True:
         if ship.can_dock(planet):
                     # We add the command by appending it to the command_queue
             command_queue.append(ship.dock(planet))
+        elif planet.owner != ship.owner and planet.owner != None:
+            navigate_command = ship.navigate(ship.closest_point_to(planet.all_docked_ships()[0]), game_map, speed=hlt.constants.MAX_SPEED)
+            if navigate_command:
+                command_queue.append(navigate_command)
         else:
                     # If we can't dock, we move towards the closest empty point near this planet (by using closest_point_to)
                     # with constant speed. Don't worry about pathfinding for now, as the command will do it for you.
